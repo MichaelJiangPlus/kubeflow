@@ -66,15 +66,19 @@ ENV PATH $CONDA_DIR/bin:$PATH
 ENV SHELL /bin/bash
 ENV NB_USER jovyan
 ENV NB_UID 1000
+ENV NB_PWD ZUCCli501
 ENV HOME /home/$NB_USER
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 
 # Create jovyan user with UID=1000 and in the 'users' group
-RUN useradd -p "openssl passwd -1 -salt "123abc456d" ZUCCli501" -m -s /bin/bash -N -u $NB_UID $NB_USER && \
+RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
     mkdir -p $CONDA_DIR && \
     chown $NB_USER $CONDA_DIR
+    
+RUN echo $NB_USER:$NB_PWD | chpasswd
+
 RUN adduser $NB_USER sudo
 
 RUN echo $NB_USER " ALL=(ALL:ALL) ALL" >> /etc/sudoers
