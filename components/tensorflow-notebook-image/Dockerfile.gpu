@@ -37,6 +37,10 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     vim \
     wget \
     zip \
+    protobuf-compiler \
+    python-pil \
+    python-lxml \
+    python-tk \
     zlib1g-dev \
     && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -68,7 +72,7 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 
 # Create jovyan user with UID=1000 and in the 'users' group
-RUN useradd -p  "openssl passwd -1 -salt "123abc456d" ZUCCli501" -m -s /bin/bash -N -u $NB_UID $NB_USER && \
+RUN useradd -p -m -s /bin/bash -N -u $NB_UID $NB_USER && \
     mkdir -p $CONDA_DIR && \
     chown $NB_USER $CONDA_DIR
 
@@ -96,6 +100,9 @@ RUN conda install --quiet --yes \
     'notebook=5.0.*' \
     'jupyterhub=0.8.1' \
     'jupyterlab=0.24.*' \
+    'matplotlib=2.0*' \
+    'pillow' \
+    'lxml' \
     && conda clean -tipsy
 
 USER root
@@ -121,11 +128,12 @@ RUN pip --no-cache-dir install \
 	ipykernel \
 	matplotlib \
 	numpy \
-	pandas \
+	pandas \ 
 	scipy \
 	sklearn \
 	kubernetes \
 	grpcio \
+    	lxml \
 	&& \
 	python -m ipykernel.kernelspec
 
@@ -155,6 +163,8 @@ RUN conda install --quiet --yes \
     'h5py=2.6*' \
     'vincent=0.4.*' \
     'beautifulsoup4=4.5.*' \
+    'lxml' \
+    'pillow' \
     'xlrd'  && \
     conda remove --quiet --yes --force qt pyqt && \
     conda clean -tipsy
