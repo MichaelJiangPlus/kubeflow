@@ -75,7 +75,11 @@ ENV LANGUAGE en_US.UTF-8
 RUN useradd -p "openssl passwd -1 -salt "123abc456d" ZUCCli501" -m -s /bin/bash -N -u $NB_UID $NB_USER && \
     mkdir -p $CONDA_DIR && \
     chown $NB_USER $CONDA_DIR
-RUN adduser jovyan sudo
+RUN adduser $NB_USER sudo
+
+RUN echo $NB_USER " ALL=(ALL:ALL) ALL" >> /etc/sudoers
+
+RUN cat /etc/sudoers
 
 USER $NB_USER
 
