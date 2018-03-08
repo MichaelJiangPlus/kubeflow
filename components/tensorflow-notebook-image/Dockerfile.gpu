@@ -10,6 +10,8 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -yq --no-install-recommends \
     apt-transport-https \
     build-essential \
+    python3-pyqt5   \
+    python3-dev     \
     bzip2 \
     ca-certificates \
     curl \
@@ -201,7 +203,7 @@ RUN chown -R $NB_USER /home/$NB_USER/
 
 RUN curl -L -o bazel.sh https://github.com/bazelbuild/bazel/releases/download/0.8.0/bazel-0.8.0-installer-linux-x86_64.sh && chmod a+x ./bazel.sh && ./bazel.sh && rm ./bazel.sh
 USER $NB_USER
-RUN git clone https://github.com/tensorflow/models.git /home/$NB_USER/tensorflow-models && git clone https://github.com/tensorflow/benchmarks.git /home/$NB_USER/tensorflow-benchmarks
+RUN git clone https://github.com/BlackWalnutLabs/TrafficSignRecognitionTraining.git /home/$NB_USER/
 RUN conda create -n ipykernel_py2 python=2 ipykernel && python -m ipykernel install --user
 # Import matplotlib the first time to build the font cache.
 ENV XDG_CACHE_HOME /home/$NB_USER/.cache/
