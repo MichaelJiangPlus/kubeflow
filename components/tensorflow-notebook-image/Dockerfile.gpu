@@ -203,7 +203,7 @@ RUN curl -L -o bazel.sh https://github.com/bazelbuild/bazel/releases/download/0.
 USER $NB_USER
 
 RUN git clone https://github.com/tensorflow/models.git /home/$NB_USER/tensorflow-models && git clone https://github.com/tensorflow/benchmarks.git /home/$NB_USER/tensorflow-benchmarks && git clone https://github.com/BlackWalnutLabs/TrafficSignRecognitionTraining.git /home/$NB_USER/object_detection
-RUN conda create -n ipykernel_py2 python=2 conda install --quietipykernel && python -m ipykernel install --user
+RUN conda create -n ipykernel_py2 python=2 ipykernel && python -m ipykernel install --user
 # Import matplotlib the first time to build the font cache.
 ENV XDG_CACHE_HOME /home/$NB_USER/.cache/
 RUN pip install jupyter-tensorboard
