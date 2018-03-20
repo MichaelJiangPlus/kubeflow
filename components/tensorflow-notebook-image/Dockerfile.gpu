@@ -51,8 +51,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 
-RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.5 100
-
 # Install Tini
 RUN wget --quiet https://github.com/krallin/tini/releases/download/v0.10.0/tini && \
     echo "1361527f39190a7338a0b434bd8c88ff7233ce7b9a4876f3315c22fce7eca1b0 *tini" | sha256sum -c - && \
@@ -108,6 +106,8 @@ RUN cd /tmp && \
     $CONDA_DIR/bin/conda config --system --set show_channel_urls true && \
     $CONDA_DIR/bin/conda update --all && \
     conda clean -tipsy
+
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.5 100
 
 # Install Jupyter Notebook and Hub
 RUN conda install --quiet --yes \
