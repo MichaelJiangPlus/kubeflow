@@ -107,7 +107,11 @@ RUN cd /tmp && \
     $CONDA_DIR/bin/conda update --all && \
     conda clean -tipsy
 
+USER root
+
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.5 100
+
+USER $NB_USER
 
 # Install Jupyter Notebook and Hub
 RUN conda install --quiet --yes \
