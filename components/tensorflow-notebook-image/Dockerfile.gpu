@@ -107,10 +107,17 @@ RUN cd /tmp && \
     $CONDA_DIR/bin/conda update --all && \
     conda clean -tipsy
 
+USER root
+
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.5 9999
+
+RUN python --version
+
 USER $NB_USER
 
 # Install Jupyter Notebook and Hub
 RUN conda install --quiet --yes \
+    'python=3.5'    \
     'notebook=5.0.*' \
     'jupyterhub=0.8.1' \
     'jupyterlab=0.24.*' \
@@ -158,6 +165,7 @@ RUN pip --no-cache-dir install \
 
 RUN conda install --quiet --yes \
     'nomkl' \
+    'python=3.5'    \
     'ipywidgets=6.0*' \
     'pandas=0.19*' \
     'numexpr=2.6*' \
@@ -190,7 +198,7 @@ RUN conda install --quiet --yes \
 
 # RUN python --version
 # RUN pip install --quiet --no-cache-dir tensorflow-gpu
-RUN pip install --quiet --no-cache-dir --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.5.0rc1-cp36-cp36m-linux_x86_64.whl
+RUN pip install --quiet --no-cache-dir --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.5.0rc1-cp35-cp35m-linux_x86_64.whl
 
 
 ENV CLOUD_SDK_VERSION 168.0.0
