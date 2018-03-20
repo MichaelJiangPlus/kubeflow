@@ -50,7 +50,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
 
 RUN python --version
 
-RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.5 100
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.5 9999
 
 RUN python --version
 
@@ -123,7 +123,7 @@ RUN python --version
 
 USER root
 
-RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.5 100
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.5 9999
 
 RUN python --version
 
