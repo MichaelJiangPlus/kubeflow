@@ -182,7 +182,7 @@ RUN conda install --quiet --yes \
     conda clean -tipsy
 
 # Install Python 3 Tensorflow with GPU support
-RUN pip install --quiet --no-cache-dir tf-nightly-gpu
+RUN pip install --quiet --no-cache-dir tensorflow-gpu
 
 ENV CLOUD_SDK_VERSION 168.0.0
 RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
@@ -204,6 +204,7 @@ USER $NB_USER
 
 RUN git clone https://github.com/tensorflow/models.git /home/$NB_USER/tensorflow-models && git clone https://github.com/tensorflow/benchmarks.git /home/$NB_USER/tensorflow-benchmarks && git clone https://github.com/BlackWalnutLabs/TrafficSignRecognitionTraining.git /home/$NB_USER/object_detection
 RUN conda create -n ipykernel_py2 python=2 ipykernel && python -m ipykernel install --user
+RUN conda create -n ipykernel_py3 python=3.5 ipykernel
 # Import matplotlib the first time to build the font cache.
 ENV XDG_CACHE_HOME /home/$NB_USER/.cache/
 RUN pip install jupyter-tensorboard
