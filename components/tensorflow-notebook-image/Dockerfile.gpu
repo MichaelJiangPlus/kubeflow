@@ -190,7 +190,7 @@ RUN conda install --quiet --yes \
 
 # RUN python --version
 # RUN pip install --quiet --no-cache-dir tensorflow-gpu
-# RUN pip install --quiet --no-cache-dir --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.5.0rc1-cp36-cp36m-linux_x86_64.whl
+RUN pip install --quiet --no-cache-dir --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.5.0rc1-cp36-cp36m-linux_x86_64.whl
 
 
 ENV CLOUD_SDK_VERSION 168.0.0
