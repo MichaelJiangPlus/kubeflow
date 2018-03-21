@@ -10,8 +10,6 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -yq --no-install-recommends \
     apt-transport-https \
     build-essential \
-    python3-pyqt5   \
-    python3-dev     \
     bzip2 \
     ca-certificates \
     curl \
