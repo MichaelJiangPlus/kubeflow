@@ -108,6 +108,7 @@ RUN cd /tmp && \
 
 # Install Jupyter Notebook and Hub
 RUN conda install --quiet --yes \
+    'tornado=4.*'\
     'notebook=5.0.*' \
     'jupyterhub=0.8.1' \
     'jupyterlab=0.24.*' \
@@ -134,7 +135,7 @@ RUN chown -R $NB_USER:users /etc/jupyter/
 
 # Install CUDA Profile Tools
 RUN pip --no-cache-dir install \
-        Pillow \
+    Pillow \
 	h5py \
 	ipykernel \
 	matplotlib \
@@ -143,9 +144,16 @@ RUN pip --no-cache-dir install \
 	scipy \
 	sklearn \
 	kubernetes \
+    grpcio \
+    ktext \
+    annoy \
+    nltk \
+    pydot \
+    pydot-ng \
+    graphviz \
 	PyQt5 \
 	grpcio \
-    	lxml \
+    lxml \
 	&& \
 	python -m ipykernel.kernelspec
 
@@ -154,8 +162,9 @@ RUN pip --no-cache-dir install \
 # use notebook-friendly backends in these images
 RUN conda install --quiet --yes \
     'nomkl' \
+    'tornado=4.*'\
     'ipywidgets=6.0*' \
-    'pandas=0.19*' \
+    'pandas=0.22*' \
     'numexpr=2.6*' \
     'matplotlib=2.0*' \
     'scipy=0.19*' \
