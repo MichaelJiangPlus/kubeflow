@@ -191,7 +191,7 @@ RUN conda install --quiet --yes \
     conda clean -tipsy
 
 # Install Python 3 Tensorflow with GPU support
-RUN pip install --quiet --no-cache-dir --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.5.0rc1-cp36-cp36m-linux_x86_64.whl
+RUN pip install --quiet --no-cache-dir tensorflow
 
 ENV CLOUD_SDK_VERSION 168.0.0
 RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
