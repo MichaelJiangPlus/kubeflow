@@ -123,10 +123,11 @@ RUN conda install --quiet --yes \
     'jupyterhub=0.8.1' \
     'jupyterlab=0.24.*' \
     'matplotlib=2.1.*' \
-    'opencv-python' \
     'pillow' \
     'lxml' \
     && conda clean -tipsy
+
+RUN conda install -c https://conda.binstar.org/menpo opencv3
 
 USER root
 
@@ -197,11 +198,12 @@ RUN conda install --quiet --yes \
     'vincent=0.4.*' \
     'beautifulsoup4=4.5.*' \
     'pillow' \
-    'opencv-python'\
     'lxml' \
     'xlrd'  && \
     conda remove --quiet --yes --force qt pyqt && \
     conda clean -tipsy
+
+RUN conda install -c https://conda.binstar.org/menpo opencv3
 
 # Install Python 3 Tensorflow with GPU support
 RUN pip install -U --pre pip setuptools wheel
