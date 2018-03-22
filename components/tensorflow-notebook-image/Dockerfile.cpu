@@ -1,7 +1,7 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 
-FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+FROM ubuntu:latest
 
 USER root
 # Install all OS dependencies for notebook server that starts but lacks all
@@ -129,7 +129,6 @@ RUN conda install --quiet --yes \
 
 RUN conda install -c https://conda.binstar.org/menpo opencv3
 
-RUN pip install --upgrade pip
 
 USER root
 
@@ -160,7 +159,6 @@ RUN pip --no-cache-dir install \
 	sklearn \
 	kubernetes \
     grpcio \
-    tflearn \
     ktext \
     annoy \
     nltk \
@@ -178,6 +176,7 @@ RUN pip --no-cache-dir install \
 # use notebook-friendly backends in these images
 
 RUN conda install -c https://conda.binstar.org/menpo opencv3
+
 
 RUN conda install --quiet --yes \
     'nomkl' \
@@ -210,12 +209,13 @@ RUN conda install --quiet --yes \
     conda clean -tipsy
 
 
+
 # Install Python 3 Tensorflow with GPU support
 RUN pip install --upgrade pip
+RUN pip install --quiet --no-cache-dir tensorflow
 RUN pip install -U --pre pip setuptools wheel
 RUN pip install -U --pre numpy scipy matplotlib scikit-learn scikit-image
-RUN pip install --quiet --no-cache-dir tensorflow-gpu
-RUN pip install -U --pre keras
+RUN sudo pip install -U --pre keras
 RUN pip install tflearn
 
 ENV CLOUD_SDK_VERSION 168.0.0
