@@ -212,6 +212,7 @@ RUN pip install --quiet --no-cache-dir tensorflow
 RUN pip install -U --pre pip setuptools wheel
 RUN pip install -U --pre numpy scipy matplotlib scikit-learn scikit-image
 RUN sudo pip install -U --pre keras
+RUN pip install tflearn
 
 ENV CLOUD_SDK_VERSION 168.0.0
 RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
