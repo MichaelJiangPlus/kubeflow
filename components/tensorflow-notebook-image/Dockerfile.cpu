@@ -18,13 +18,18 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     fonts-liberation \
     g++ \
     git \
+    gcc \
+    gfortran \
     inkscape \
     jed \
     libav-tools \
     libcupti-dev \
     libsm6 \
     libxext-dev \
+    libopenblas-dev \
+    liblapack-dev \
     libxrender1 \
+    libatlas-base-dev \
     lmodern \
     locales \
     lsb-release \
@@ -38,14 +43,16 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     vim \
     wget \
     zip \
-    python-opencv   \
     protobuf-compiler \
     python-pil \
     python-lxml \
     python-tk \
+    python-pip \
+    python-nose \
     python3-pyqt5   \
     python3-dev     \
     python3-pip     \
+    python-opencv   \
     zlib1g-dev \
     && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -198,6 +205,9 @@ RUN conda install --quiet --yes \
 
 # Install Python 3 Tensorflow with GPU support
 RUN pip install --quiet --no-cache-dir tensorflow
+RUN pip install -U --pre pip setuptools wheel
+RUN pip install -U --pre numpy scipy matplotlib scikit-learn scikit-image
+RUN sudo pip install -U --pre keras
 
 ENV CLOUD_SDK_VERSION 168.0.0
 RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
