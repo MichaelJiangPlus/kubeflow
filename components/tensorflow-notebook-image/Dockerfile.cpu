@@ -47,7 +47,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     python-pil \
     python-lxml \
     python-tk \
-    python-pip \
     python-nose \
     python3-pyqt5   \
     python3-dev     \
@@ -211,12 +210,9 @@ RUN conda install --quiet --yes \
 
 
 # Install Python 3 Tensorflow with GPU support
-RUN pip install --upgrade pip
-RUN pip install --quiet --no-cache-dir tensorflow
-RUN pip install -U --pre pip setuptools wheel
-RUN pip install -U --pre numpy scipy matplotlib scikit-learn scikit-image
-RUN sudo pip install -U --pre keras
-RUN pip install tflearn
+RUN pip install --quiet --no-cache-dir pip
+RUN pip install --quiet --no-cache-dir tensorflow setuptools wheel tflearn
+RUN pip install --quiet --no-cache-dir keras
 
 ENV CLOUD_SDK_VERSION 168.0.0
 RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
