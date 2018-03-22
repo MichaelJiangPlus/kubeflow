@@ -18,13 +18,18 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     fonts-liberation \
     g++ \
     git \
+    gcc \
+    gfortran \
     inkscape \
     jed \
     libav-tools \
     libcupti-dev \
     libsm6 \
     libxext-dev \
+    libopenblas-dev \
+    liblapack-dev \
     libxrender1 \
+    libatlas-base-dev \
     lmodern \
     locales \
     lsb-release \
@@ -42,6 +47,8 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     python-pil \
     python-lxml \
     python-tk \
+    python-pip \
+    python-nose \
     python3-pyqt5   \
     python3-dev     \
     python3-pip     \
@@ -116,7 +123,7 @@ RUN conda install --quiet --yes \
     'jupyterhub=0.8.1' \
     'jupyterlab=0.24.*' \
     'matplotlib=2.1.*' \
-    'opencv-python'\
+    'opencv-python' \
     'pillow' \
     'lxml' \
     && conda clean -tipsy
@@ -139,6 +146,7 @@ RUN chown -R $NB_USER:users /etc/jupyter/
 
 # Install CUDA Profile Tools
 RUN pip --no-cache-dir install \
+    opencv-python \
     Pillow \
 	h5py \
 	ipykernel \
@@ -154,7 +162,6 @@ RUN pip --no-cache-dir install \
     nltk \
     pydot \
     pydot-ng \
-    opencv-python\
     graphviz \
 	PyQt5 \
 	grpcio \
@@ -197,7 +204,10 @@ RUN conda install --quiet --yes \
     conda clean -tipsy
 
 # Install Python 3 Tensorflow with GPU support
+RUN pip install -U --pre pip setuptools wheel
+RUN pip install -U --pre numpy scipy matplotlib scikit-learn scikit-image
 RUN pip install --quiet --no-cache-dir tensorflow-gpu
+RUN sudo pip install -U --pre keras
 
 ENV CLOUD_SDK_VERSION 168.0.0
 RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
