@@ -10,8 +10,6 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -yq --no-install-recommends \
     apt-transport-https \
     build-essential \
-    python3-pyqt5   \
-    python3-dev     \
     bzip2 \
     ca-certificates \
     curl \
@@ -108,15 +106,13 @@ RUN cd /tmp && \
 
 # Install Jupyter Notebook and Hub
 RUN conda install --quiet --yes \
-    'tornado=4.*'\
+    'tornado=4.5.*'\
     'notebook=5.0.*' \
     'jupyterhub=0.8.1' \
     'jupyterlab=0.24.*' \
-    'matplotlib=2.0*' \
-    'pyqt=4.11.4 '  \
-    'qt=4.8.7'   \
-    'pillow' \
-    'lxml' \
+    'matplotlib=2.1.*' \
+    'pillow=3.1.*' \
+    'lxml=3.5.*' \
     && conda clean -tipsy
 
 USER root
@@ -137,10 +133,10 @@ RUN chown -R $NB_USER:users /etc/jupyter/
 
 # Install CUDA Profile Tools
 RUN pip --no-cache-dir install \
-    Pillow \
+    Pillow=3.5.* \
 	h5py \
 	ipykernel \
-	matplotlib \
+	matplotlib=2.1.* \
 	numpy \
 	pandas \ 
 	scipy \
@@ -168,7 +164,7 @@ RUN conda install --quiet --yes \
     'ipywidgets=6.0*' \
     'pandas=0.22*' \
     'numexpr=2.6*' \
-    'matplotlib=2.0*' \
+    'matplotlib=2.1.*' \
     'scipy=0.19*' \
     'seaborn=0.7*' \
     'scikit-learn=0.18*' \
@@ -186,10 +182,8 @@ RUN conda install --quiet --yes \
     'h5py=2.6*' \
     'vincent=0.4.*' \
     'beautifulsoup4=4.5.*' \
-    'pyqt=4.11.4 '  \
-    'qt=4.8.7'   \
-    'lxml' \
-    'pillow' \
+    'pillow=3.1.*' \
+    'lxml=3.5.*' \
     'xlrd'  && \
     conda remove --quiet --yes --force qt pyqt && \
     conda clean -tipsy
@@ -215,7 +209,7 @@ RUN chown -R $NB_USER /home/$NB_USER/
 RUN curl -L -o bazel.sh https://github.com/bazelbuild/bazel/releases/download/0.8.0/bazel-0.8.0-installer-linux-x86_64.sh && chmod a+x ./bazel.sh && ./bazel.sh && rm ./bazel.sh
 USER $NB_USER
 
-RUN git clone https://github.com/tensorflow/models.git /home/$NB_USER/tensorflow-models && git clone https://github.com/tensorflow/benchmarks.git /home/$NB_USER/tensorflow-benchmarks && git clone https://github.com/BlackWalnutLabs/TrafficSignRecognitionTraining.git /home/$NB_USER/object_detection
+RUN git clone https://github.com/tensorflow/models.git /home/$NB_USER/Appendix/tensorflow-models && git clone https://github.com/tensorflow/benchmarks.git /home/$NB_USER/Appendix/tensorflow-benchmarks
 RUN conda create -n ipykernel_py2 python=2 ipykernel && python -m ipykernel install --user
 # Import matplotlib the first time to build the font cache.
 ENV XDG_CACHE_HOME /home/$NB_USER/.cache/
