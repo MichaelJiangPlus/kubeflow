@@ -26,4 +26,7 @@ RUN npm install -g configurable-http-proxy && \
                  jhub_remote_user_authenticator \
                  oauthenticator
 
+RUN echo "c.Authenticator.admin_users = { 'blackwalnut','admin'}"   >> /etc/config/jupyterhub_config.py
+RUN echo "c.Authenticator.whitelist = {'democent001', 'democent002'}"   >> /etc/config/jupyterhub_config.py
+
 ENTRYPOINT jupyterhub
